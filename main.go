@@ -224,11 +224,27 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	log.Printf("Starting application with configuration:")
+	log.Printf("PORT: %s", port)
+	log.Printf("WEATHER_API_KEY: %s", weatherAPIKey[:4]+"..."+weatherAPIKey[len(weatherAPIKey)-4:])
+
 	httpClient := &http.Client{}
 	cepService := NewCEPService(httpClient)
 	weatherService := NewWeatherService(httpClient, weatherAPIKey)
 	app := NewApp(cepService, weatherService)
 	router := app.setupRoutes()
-	log.Printf("Server starting on port %s", port)
-	log.Fatal(http.ListenAndServe(":"+port, router))
+
+	addr := ":" + port
+	log.Printf("Server starting on %s", addr)
+
+	server := &http.Server{
+		Addr:    addr,
+		Handler: router,
+	}
+
+	log.Printf("Server configured and ready to accept connections")
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
 }

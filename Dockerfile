@@ -19,7 +19,7 @@ RUN apk --no-cache add ca-certificates
 RUN addgroup -g 1001 -S appgroup && \
     adduser -u 1001 -S appuser -G appgroup
 
-WORKDIR /root/
+WORKDIR /app
 
 COPY --from=builder /app/main .
 
@@ -31,4 +31,12 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-CMD ["./main"] 
+# Add a health check endpoint
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT}/weather/01310100 || exit 1
+
+# Add debugging information
+CMD echo "Starting application on port ${PORT}" && \
+    echo "Current directory: $(pwd)" && \
+    echo "Files in directory: $(ls -la)" && \
+    ./main 
