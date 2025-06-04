@@ -180,6 +180,12 @@ gcloud beta builds triggers create github \
   --build-config=cloudbuild.yaml
 ```
 
+## Deploy em produção
+
+O serviço está disponível em:
+
+https://projeto-deploy-875860357089.us-central1.run.app
+
 ## Estrutura do Projeto
 
 ```
