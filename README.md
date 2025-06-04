@@ -2,6 +2,15 @@
 
 Este sistema em Go recebe um CEP válido, identifica a cidade e retorna o clima atual em Celsius, Fahrenheit e Kelvin.
 
+## Favor, ler aqui com atenção!
+
+Eu tive problemas para subir o ambiente do Cloud Run, mas consegui fazer o Docker run usando a imagem criada puxando-a do GCP. Não estou conseguindo fazer o deploy para obter a URL, mas localmente, a aplicação funciona perfeitamente.
+
+### Print do Docker
+![Docker Run](print-docker.png)
+
+---
+
 ## Funcionalidades
 
 - ✅ Validação de CEP (8 dígitos)

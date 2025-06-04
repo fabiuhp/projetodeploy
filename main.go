@@ -222,7 +222,7 @@ func main() {
 	}
 	port := viper.GetString("PORT")
 	if port == "" {
-		port = "8000"
+		port = "8080"
 	}
 	httpClient := &http.Client{}
 	cepService := NewCEPService(httpClient)
